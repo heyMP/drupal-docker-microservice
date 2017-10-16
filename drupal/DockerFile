@@ -1,5 +1,22 @@
 FROM drupal:7.56
 
-WORKDIR /var/www/html
+# RUN apt-get update
+# RUN apt-get install wget -y
 
-COPY . .
+# setup drush
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN touch $HOME/.bachrc
+RUN sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
+RUN sed -i '1i export PATH="$HOME/.config/composer/vendor/bin:$PATH"' $HOME/.bashrc
+RUN /bin/bash "$HOME/.bashrc"
+# full path to execute in case root needs to log out before it picks it up
+RUN php /usr/local/bin/composer global require drush/drush:7.*
+# copy in the elmsln server stuff as the baseline for .drush
+RUN  mkdir $HOME/.drush
+# # stupid ubuntu drush thing to work with sudo
+RUN ln -s /root/.composer/vendor/drush/drush /usr/share/drush
+# RUN ln -s /root/.config/composer/vendor/drush/drush /usr/share/drush
+
+WORKDIR /var/www/html/
+RUN drush cc drush

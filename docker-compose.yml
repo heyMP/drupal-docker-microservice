@@ -18,8 +18,8 @@ services:
       MYSQL_DATABASE: root
   numberservice:
     build: ./numberservice
-    ports:
-      - '1337:1337'
+    # ports:
+    #   - '1337:1337'
     volumes:
       # mount the codebase
       - ./numberservice:/code
