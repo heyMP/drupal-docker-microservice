@@ -18,8 +18,6 @@ services:
       MYSQL_DATABASE: root
   numberservice:
     build: ./numberservice
-    # ports:
-    #   - '1337:1337'
     volumes:
       # mount the codebase
       - ./numberservice:/code
@@ -27,6 +25,8 @@ services:
       # and the fact that they won't work if they get shared to
       # the local https://youtu.be/zcSbOl8DYXM?t=14m19s
       - numberservice-deps:/code/node_modules
+      - numberservice-data:/code/.tmp
 volumes:
   app-sites:
   numberservice-deps:
+  numberservice-data:

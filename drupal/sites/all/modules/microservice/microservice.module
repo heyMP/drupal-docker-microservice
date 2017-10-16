@@ -68,6 +68,7 @@ function microservice_user_create_form_submit($form, &$form_state) {
 
 function _microservice_get_users() {
   $req = drupal_http_request('http://numberservice:1337/user');
+  krumo($req);
   if ($req->status_message == 'OK') {
     $data = $req->data;
     $data = json_decode($data);
@@ -95,6 +96,17 @@ function _microservice_create_user($name) {
     ),
     'method' => 'POST',
     'data' => json_encode(array('name' => $name))
+  );
+  $req = drupal_http_request('http://numberservice:1337/user', $options);
+  return $req->status_message;
+}
+
+function _microservice_delete_user_1() {
+  $options = array(
+    'headers' => array(
+      'ContentType' => 'application/json'
+    ),
+    'method' => 'DELETE'
   );
   $req = drupal_http_request('http://numberservice:1337/user', $options);
   return $req->status_message;
