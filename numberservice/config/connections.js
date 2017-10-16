@@ -65,6 +65,11 @@ module.exports.connections = {
   //   database: 'your_mongo_db_name_here' //optional
   // },
 
+  developmentMongoDB: {
+    adapter: 'sails-mongo',
+    url: 'mongodb://numberservice_db/microservice'
+  }
+
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *

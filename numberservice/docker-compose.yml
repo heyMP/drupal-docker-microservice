@@ -1,0 +1,12 @@
+version: '2'
+services:
+  db:
+    image: mongo
+    restart: always
+  app:
+    build: .
+    ports:
+      - "1337:1337"
+    links:
+      - db
+    command: nodemon /app/app.js

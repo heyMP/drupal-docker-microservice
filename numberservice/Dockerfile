@@ -1,10 +1,10 @@
-FROM node:6.11
+FROM node:6.11.4
+
+WORKDIR /app
 
 RUN npm install -g nodemon
 
-WORKDIR /code
 COPY package.json .
-
 RUN npm install
 
 COPY . .

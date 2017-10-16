@@ -1,0 +1,5 @@
+FROM drupal:7.56
+
+WORKDIR /var/www/html
+
+COPY . .

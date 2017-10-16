@@ -1,12 +1,14 @@
 version: '2'
 services:
   app:
-    image: drupal
+    image: drupal:7.56
     ports:
       - '8085:80'
     volumes:
-      - ./drupal-7.56:/var/www/html
+      - ./drupal:/var/www/html
       - app-sites:/var/www/html/sites/default
+    links:
+      - db
   db:
     image: mysql
     restart: always
