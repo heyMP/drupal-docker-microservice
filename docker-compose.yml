@@ -6,6 +6,7 @@ services:
       - '8085:80'
     volumes:
       - ./drupal-7.56:/var/www/html
+      - app-sites:/var/www/html/sites/default
   db:
     image: mysql
     restart: always
@@ -13,3 +14,17 @@ services:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
+  numberservice:
+    build: ./numberservice
+    ports:
+      - '1337:1337'
+    volumes:
+      # mount the codebase
+      - ./numberservice:/code
+      # put node_modules in their own volume for performance
+      # and the fact that they won't work if they get shared to
+      # the local https://youtu.be/zcSbOl8DYXM?t=14m19s
+      - numberservice-deps:/code/node_modules
+volumes:
+  app-sites:
+  numberservice-deps:
