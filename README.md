@@ -12,6 +12,6 @@ Use database creds:
 - password: `root`
 - DB host: `db`
 
-After Install, enable the `microservice` module and visit `microservice/user`
+After Install, enable the `microservice` module and visit `http://localhost:8085/microservice/user`
 
 Start creating users in your microservice.
