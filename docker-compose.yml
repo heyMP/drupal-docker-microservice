@@ -2,13 +2,12 @@ version: '2'
 services:
   app:
     image: drupal:7.56
-    ports:
-      - '8085:80'
     volumes:
       - ./drupal:/var/www/html
       - app-sites:/var/www/html/sites/default
     links:
       - db
+      - caddy
   db:
     image: mysql
     restart: always
@@ -26,6 +25,13 @@ services:
       # the local https://youtu.be/zcSbOl8DYXM?t=14m19s
       - numberservice-deps:/code/node_modules
       - numberservice-data:/code/.tmp
+  caddy:
+    image: 'abiosoft/caddy'
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+    ports:
+      - '80:80'
+      - '8443:8443'
 volumes:
   app-sites:
   numberservice-deps:
